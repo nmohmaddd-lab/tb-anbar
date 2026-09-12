@@ -1,0 +1,65 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+<div class="row mb-4">
+<div class="col-md-4"><div class="card stat-card bg-primary text-white"><div class="card-body text-center"><h5>إجمالي المرضى</h5><h2 class="display-4">{{ total }}</h2></div></div></div>
+<div class="col-md-4"><div class="card stat-card bg-warning text-dark"><div class="card-body text-center"><h5>قيد العلاج</h5><h2 class="display-4">{{ under_treatment }}</h2></div></div></div>
+<div class="col-md-4"><div class="card stat-card bg-success text-white"><div class="card-body text-center"><h5>متعافون</h5><h2 class="display-4">{{ recovered }}</h2></div></div></div>
+</div>
+
+<div class="card shadow-sm mb-4">
+<div class="card-body">
+<form method="GET" class="row g-2">
+<div class="col-md-8"><input type="text" name="q" value="{{ q }}" class="form-control" placeholder="ابحث بالاسم، الهاتف، أو العنوان..."></div>
+<div class="col-md-2"><button class="btn btn-primary w-100">بحث</button></div>
+<div class="col-md-2">
+{% if is_admin %}<a href="{{ url_for('add_patient') }}" class="btn btn-success w-100">إضافة مريض</a>
+{% else %}<a href="{{ url_for('index') }}" class="btn btn-secondary w-100">تحديث</a>{% endif %}
+</div>
+</form>
+</div>
+</div>
+
+<div class="card shadow-sm">
+<div class="card-header bg-dark text-white">
+<strong>قائمة المرضى</strong>
+{% if is_admin %}<a href="{{ url_for('backup') }}" class="btn btn-sm btn-outline-light float-end">نسخة احتياطية</a>{% endif %}
+</div>
+<div class="table-responsive">
+<table class="table table-hover table-striped mb-0">
+<thead class="table-light">
+<tr><th>#</th><th>الاسم</th><th>العمر</th><th>الجنس</th><th>العنوان</th><th>الهاتف</th><th>نوع المرض</th><th>بدء العلاج</th><th>آخر زيارة</th><th>الحالة</th><th>إجراءات</th></tr>
+</thead>
+<tbody>
+{% for p in patients %}
+<tr>
+<td>{{ p.id }}</td>
+<td><strong>{{ p.full_name }}</strong></td>
+<td>{{ p.age or '-' }}</td>
+<td>{{ p.gender or '-' }}</td>
+<td>{{ p.address or '-' }}</td>
+<td>{{ p.phone or '-' }}</td>
+<td>{{ p.disease_type or '-' }}</td>
+<td>{{ p.treatment_start or '-' }}</td>
+<td>{{ p.last_visit or '-' }}</td>
+<td>
+{% if p.status == 'متعافي' %}<span class="badge bg-success">{{ p.status }}</span>
+{% elif p.status == 'قيد العلاج' %}<span class="badge bg-warning text-dark">{{ p.status }}</span>
+{% elif p.status == 'متوفى' %}<span class="badge bg-dark">{{ p.status }}</span>
+{% else %}<span class="badge bg-secondary">{{ p.status }}</span>{% endif %}
+</td>
+<td>
+<a href="{{ url_for('patient_detail', pid=p.id) }}" class="btn btn-sm btn-info">عرض</a>
+{% if is_admin %}
+<a href="{{ url_for('edit_patient', pid=p.id) }}" class="btn btn-sm btn-warning">تعديل</a>
+<a href="{{ url_for('delete_patient', pid=p.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('هل أنت متأكد من حذف {{ p.full_name }}؟')">حذف</a>
+{% endif %}
+</td>
+</tr>
+{% else %}
+<tr><td colspan="11" class="text-center text-muted py-4">لا توجد بيانات حتى الآن</td></tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+{% endblock %}

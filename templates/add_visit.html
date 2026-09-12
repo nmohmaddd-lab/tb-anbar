@@ -1,0 +1,23 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow">
+<div class="card-header bg-success text-white"><h4 class="mb-0">إضافة زيارة للمريض: {{ patient.full_name }}</h4></div>
+<div class="card-body">
+<form method="POST">
+<div class="row g-3">
+<div class="col-md-4"><label class="form-label">تاريخ الزيارة *</label><input type="date" name="visit_date" class="form-control" required></div>
+<div class="col-md-4"><label class="form-label">نوع الزيارة</label>
+<select name="visit_type" class="form-select">
+<option value="متابعة">متابعة</option>
+<option value="فحص مختبري">فحص مختبري</option>
+<option value="صرف أدوية">صرف أدوية</option>
+<option value="أشعة">أشعة</option>
+</select></div>
+<div class="col-md-4"><label class="form-label">الوزن (كغم)</label><input type="number" step="0.1" name="weight" class="form-control"></div>
+<div class="col-12"><label class="form-label">ملاحظات</label><textarea name="notes" class="form-control" rows="3"></textarea></div>
+</div>
+<div class="mt-4"><button class="btn btn-success btn-lg">حفظ</button> <a href="{{ url_for('patient_detail', pid=patient.id) }}" class="btn btn-secondary btn-lg">إلغاء</a></div>
+</form>
+</div>
+</div>
+{% endblock %}

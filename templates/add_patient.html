@@ -1,0 +1,27 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow">
+<div class="card-header bg-success text-white"><h4 class="mb-0">إضافة مريض جديد</h4></div>
+<div class="card-body">
+<form method="POST">
+<div class="row g-3">
+<div class="col-md-6"><label class="form-label">الاسم الكامل *</label><input type="text" name="full_name" class="form-control" required></div>
+<div class="col-md-3"><label class="form-label">العمر</label><input type="number" name="age" class="form-control" min="0" max="120"></div>
+<div class="col-md-3"><label class="form-label">الجنس</label>
+<select name="gender" class="form-select"><option value="">-- اختر --</option><option value="ذكر">ذكر</option><option value="أنثى">أنثى</option></select></div>
+<div class="col-md-6"><label class="form-label">العنوان</label><input type="text" name="address" class="form-control" placeholder="القضاء / الناحية / القرية"></div>
+<div class="col-md-6"><label class="form-label">رقم الهاتف</label><input type="text" name="phone" class="form-control"></div>
+<div class="col-md-6"><label class="form-label">نوع المرض</label>
+<select name="disease_type" class="form-select"><option value="">-- اختر --</option><option value="رئوي">رئوي</option><option value="خارج الرئة">خارج الرئة</option><option value="مقاوم للأدوية MDR">مقاوم للأدوية MDR</option></select></div>
+<div class="col-md-6"><label class="form-label">الحالة</label>
+<select name="status" class="form-select"><option value="قيد العلاج">قيد العلاج</option><option value="متعافي">متعافي</option><option value="منقطع">منقطع</option><option value="متوفى">متوفى</option></select></div>
+<div class="col-md-4"><label class="form-label">تاريخ بدء العلاج</label><input type="date" name="treatment_start" class="form-control"></div>
+<div class="col-md-4"><label class="form-label">تاريخ نهاية العلاج</label><input type="date" name="treatment_end" class="form-control"></div>
+<div class="col-md-4"><label class="form-label">تاريخ آخر زيارة</label><input type="date" name="last_visit" class="form-control"></div>
+<div class="col-12"><label class="form-label">ملاحظات</label><textarea name="notes" class="form-control" rows="3"></textarea></div>
+</div>
+<div class="mt-4"><button class="btn btn-success btn-lg">حفظ</button> <a href="{{ url_for('admin') }}" class="btn btn-secondary btn-lg">إلغاء</a></div>
+</form>
+</div>
+</div>
+{% endblock %}
