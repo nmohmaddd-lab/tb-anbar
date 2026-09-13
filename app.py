@@ -147,6 +147,11 @@ def delete_visit(vid):
 def backup():
     return send_file(DB, as_attachment=True, download_name=f'backup_{date.today()}.db')
 
+
+# ==================== تحميل مسارات استيراد Excel ====================
+from import_excel_patch import register_import_routes
+register_import_routes(app, get_db, render_template, request, redirect, url_for, flash, send_file)
+
 if __name__ == '__main__':
     init_db()
     app.run(debug=True, host='0.0.0.0', port=5000)

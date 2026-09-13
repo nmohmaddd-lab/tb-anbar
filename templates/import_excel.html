@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">📥 استيراد أسماء من Excel</h4>
+    </div>
+    <div class="card-body">
+
+        <div class="alert alert-info">
+            <strong>تعليمات:</strong>
+            <ol class="mb-0">
+                <li>حمّل <a href="{{ url_for('download_template') }}" class="alert-link">قالب Excel الجاهز</a></li>
+                <li>افتح القالب على جهازك وأدخل الأسماء</li>
+                <li>احفظ الملف</li>
+                <li>ارفع الملف هنا</li>
+            </ol>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label fw-bold">اختر ملف Excel (.xlsx)</label>
+                <input type="file" name="excel_file" class="form-control" accept=".xlsx,.xls" required>
+            </div>
+            <button class="btn btn-success btn-lg">📤 رفع واستيراد</button>
+            <a href="{{ url_for('download_template') }}" class="btn btn-outline-primary btn-lg">📄 تحميل القالب</a>
+            <a href="{{ url_for('admin') }}" class="btn btn-secondary btn-lg">إلغاء</a>
+        </form>
+
+        <hr class="my-4">
+
+        <h5>📋 الأعمدة المطلوبة في القالب:</h5>
+        <div class="table-responsive">
+            <table class="table table-bordered table-sm">
+                <thead class="table-light">
+                    <tr><th>#</th><th>العمود</th><th>إلزامي؟</th><th>مثال</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>الاسم الكامل</td><td class="text-danger">✅ نعم</td><td>محمد أحمد علي</td></tr>
+                    <tr><td>2</td><td>العمر</td><td>لا</td><td>35</td></tr>
+                    <tr><td>3</td><td>الجنس</td><td>لا</td><td>ذكر / أنثى</td></tr>
+                    <tr><td>4</td><td>العنوان</td><td>لا</td><td>الرمادي - الملعب</td></tr>
+                    <tr><td>5</td><td>رقم الهاتف</td><td>لا</td><td>07701234567</td></tr>
+                    <tr><td>6</td><td>نوع المرض</td><td>لا</td><td>رئوي / خارج الرئة / MDR</td></tr>
+                    <tr><td>7</td><td>تاريخ بدء العلاج</td><td>لا</td><td>2026-01-15</td></tr>
+                    <tr><td>8</td><td>تاريخ نهاية العلاج</td><td>لا</td><td>2026-06-15</td></tr>
+                    <tr><td>9</td><td>تاريخ آخر زيارة</td><td>لا</td><td>2026-03-20</td></tr>
+                    <tr><td>10</td><td>الحالة</td><td>لا</td><td>قيد العلاج / متعافي / منقطع / متوفى</td></tr>
+                    <tr><td>11</td><td>ملاحظات</td><td>لا</td><td>أي ملاحظة</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
